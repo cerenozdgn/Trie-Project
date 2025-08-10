@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class MyTreeClass {
+public class MyTree {
     public static void main(String[] args) {
         if(args.length!=1){
             System.out.println(" Java MyTree sozluk.txt");
@@ -11,6 +11,7 @@ public class MyTreeClass {
         }
         Trie trie = new Trie();
         String filePath = args[0];
+        System.out.println("> Java MyTree " + filePath);
         System.out.println("Sözlük Yükleniyor. Lütfen Bekleyin...");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
