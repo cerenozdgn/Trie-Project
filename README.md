@@ -23,7 +23,7 @@ Bu proje, verilen bir **sözlük dosyasını** (satır başına bir kelime) **Tr
 
 - **TrieNode** → 26 harf için çocuk referansı (`A`–`Z`) ve `isEndOfWord` bayrağı tutar.
 - **Trie** → Kelime ekleme (`insertNodeToTrie`), otomatik tamamlama (`autoComplete`) ve DFS ile sonuç toplama (`findWords`).
-- **MyTreeClass** → Dosyayı okur, kelimeleri Trie’a ekler, kullanıcıdan prefix alır ve sonuçları listeler.
+- **MyTree** → Dosyayı okur, BufferedReader ile sözlüğü satır satır okuyup trie.insertNodeToTrie(...) çağırır. , kullanıcıdan prefix alır ve sonuçları listeler.
 
 ---
 
@@ -40,25 +40,34 @@ Bu proje, verilen bir **sözlük dosyasını** (satır başına bir kelime) **Tr
 Otomatik tamamlama sonuçlarını **sıralı** şekilde tutmak ve kolayca yazdırmak için `List<String>` en uygun seçim.  
 DFS ile ürettiğimiz sonuçlar ekleme sırasını koruyor ve tekrar üretim olmadığından `List` yeterli oluyor.  
 
-Alternatif olarak `Set` kullanılabilirdi ancak:
-- **HashSet** ekleme sırası ve sıralama garantisi vermez.  
-- **TreeSet** alfabetik sıralayabilir ama Trie yapısında zaten DFS ile doğal sıralama elde ediliyor, ek maliyete gerek yok.
+## Alternatifler:
+
+- ArrayDeque<String>: BFS sırasında kuyruk olarak.
+
+- PriorityQueue<String>: Alfabetik/skorlu en iyi N öneri gerekiyorsa.
+
+- TreeSet<String>: Benzersiz ve sürekli sıralı akış istenirse.
+
+- LinkedList<String>: Sık baş/son eklemelerde; ama indeks erişimi yavaş.
 
 ---
 
 ##  Karmaşıklık
 
 - **Ekleme:** O(L) — L: kelime uzunluğu
-- **Arama:** O(P + K) — P: prefix uzunluğu, K: dönen sonuç sayısı
+- **Tam Arama:** O(L)
+- **Autocomplete:** O(P + K) — P = önek uzunluğu, K = alt ağaçta dolaşılan toplam karakter/düğüm
 - **Bellek:** O(∑Lᵢ) — tüm kelime uzunluklarının toplamına orantılı
 
 ---
 
 ##  Proje Yapısı
+```bash
 src/
 ├── MyTreeClass.java # main: dosya yükleme + kullanıcı etkileşimi
 ├── Trie.java # ekleme, arama, DFS/backtracking
 └── TrieNode.java # 26 çocuk ve kelime bitiş bayrağı
+```
 
 
 ---
@@ -71,10 +80,10 @@ src/
 ---
 
 ## Kullanım 
--- Programı çalıştırın.
--- İstediğiniz prefix’i yazın.
--- Listeyi görün.
--- Boş satır girerseniz program kapanır.
+- Programı çalıştırın.
+- İstediğiniz prefix’i yazın.
+- Listeyi görün.
+- Boş satır girerseniz program kapanır.
 
 
 
